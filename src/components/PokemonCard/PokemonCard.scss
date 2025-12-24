@@ -1,0 +1,126 @@
+@use '@styles/variables' as *;
+@use '@styles/mixins' as *;
+
+.pokemon-card {
+  position: relative;
+  background: $white;
+  border-radius: $border-radius-xl;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all $transition-normal;
+  box-shadow: $shadow-md;
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: $shadow-xl;
+
+    .pokemon-card__image {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .pokemon-card__circle {
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba($primary-color, 0.3), $shadow-xl;
+  }
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(135deg, var(--card-color) 0%, rgba(var(--card-color), 0.8) 100%);
+    overflow: hidden;
+  }
+
+  &__circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    transition: transform $transition-normal;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 280px;
+
+    @include mobile {
+      min-height: 240px;
+      padding: 0.75rem;
+    }
+  }
+
+  &__id {
+    align-self: flex-end;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  &__image-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+  }
+
+  &__image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+    transition: transform $transition-normal;
+
+    @include mobile {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  &__name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $text-color;
+    margin-bottom: 0.75rem;
+    text-align: center;
+
+    @include mobile {
+      font-size: 1rem;
+    }
+  }
+
+  &__types {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__type {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $white;
+    border-radius: $border-radius-pill;
+    text-transform: capitalize;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
