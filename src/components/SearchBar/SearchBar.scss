@@ -1,0 +1,75 @@
+@use '@styles/variables' as *;
+@use '@styles/mixins' as *;
+
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+
+  &__icon {
+    position: absolute;
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-muted;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 1rem 3rem 1rem 3.5rem;
+    font-size: 1rem;
+    font-family: $font-family;
+    border: 2px solid $border-color;
+    border-radius: $border-radius-lg;
+    background: $white;
+    color: $text-color;
+    transition: all $transition-fast;
+    box-shadow: $shadow-sm;
+
+    &::placeholder {
+      color: $text-muted;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 4px rgba($primary-color, 0.15);
+    }
+
+    &:hover:not(:focus) {
+      border-color: darken($border-color, 10%);
+    }
+  }
+
+  &__clear {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: $text-muted;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all $transition-fast;
+
+    &:hover {
+      color: $text-color;
+      background: rgba($text-color, 0.1);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.3);
+    }
+  }
+}
+

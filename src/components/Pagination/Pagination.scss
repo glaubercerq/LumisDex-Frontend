@@ -1,0 +1,90 @@
+@use '@styles/variables' as *;
+@use '@styles/mixins' as *;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+
+  &__pages {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    @include mobile {
+      gap: 0.125rem;
+    }
+  }
+
+  &__button {
+    min-width: 44px;
+    height: 44px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: $font-family;
+    border: 2px solid transparent;
+    border-radius: $border-radius;
+    background: $white;
+    color: $text-color;
+    cursor: pointer;
+    transition: all $transition-fast;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: $shadow-sm;
+
+    @include mobile {
+      min-width: 38px;
+      height: 38px;
+      font-size: 0.9rem;
+    }
+
+    &:hover:not(:disabled) {
+      background: $bg-color;
+      border-color: $primary-color;
+      color: $primary-color;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    &--active {
+      background: $primary-color;
+      color: $white;
+      border-color: $primary-color;
+
+      &:hover:not(:disabled) {
+        background: darken($primary-color, 10%);
+        border-color: darken($primary-color, 10%);
+        color: $white;
+      }
+    }
+
+    &--arrow {
+      background: transparent;
+      box-shadow: none;
+      
+      &:hover:not(:disabled) {
+        background: rgba($primary-color, 0.1);
+      }
+    }
+  }
+
+  &__ellipsis {
+    padding: 0.5rem;
+    color: $text-muted;
+    font-weight: 600;
+  }
+}
+
