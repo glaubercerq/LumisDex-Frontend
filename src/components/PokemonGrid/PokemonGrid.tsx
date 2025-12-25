@@ -7,9 +7,17 @@ interface PokemonGridProps {
   pokemons: Pokemon[]
   isLoading: boolean
   onPokemonClick: (pokemon: Pokemon) => void
+  onToggleFavorite: (pokemon: Pokemon, e?: React.MouseEvent) => void
+  isFavorite: (pokemonId: number) => boolean
 }
 
-export function PokemonGrid({ pokemons, isLoading, onPokemonClick }: PokemonGridProps) {
+export function PokemonGrid({ 
+  pokemons, 
+  isLoading, 
+  onPokemonClick,
+  onToggleFavorite,
+  isFavorite
+}: PokemonGridProps) {
   if (isLoading) {
     return (
       <div className="pokemon-grid__loading">
@@ -55,6 +63,8 @@ export function PokemonGrid({ pokemons, isLoading, onPokemonClick }: PokemonGrid
             <PokemonCard 
               pokemon={pokemon} 
               onClick={onPokemonClick}
+              onToggleFavorite={onToggleFavorite}
+              isFavorite={isFavorite(pokemon.id)}
             />
           </div>
         ))}
