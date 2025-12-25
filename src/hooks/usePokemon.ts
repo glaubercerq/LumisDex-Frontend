@@ -2,8 +2,7 @@ import { useState, useCallback } from 'react'
 import { Pokemon, PokemonType } from '@types/pokemon'
 import { 
   getPokemonList, 
-  searchPokemon, 
-  getPokemonsByType 
+  searchPokemon
 } from '@services/pokemonService'
 
 interface UsePokemonReturn {
@@ -36,30 +35,17 @@ export function usePokemon(): UsePokemonReturn {
 
     try {
       if (searchTerm && searchTerm.trim()) {
-        const pokemon = await searchPokemon(searchTerm.trim())
-        if (pokemon) {
-          if (type && !pokemon.types.includes(type)) {
-            setPokemons([])
-            setTotalCount(0)
-          } else {
-            setPokemons([pokemon])
-            setTotalCount(1)
-          }
-        } else {
-          setPokemons([])
-          setTotalCount(0)
-        }
+        const pokemons = await searchPokemon(searchTerm.trim())
+        const filteredPokemons = type
+          ? pokemons.filter(p => p.types.includes(type))
+          : pokemons
+        
+        setPokemons(filteredPokemons)
+        setTotalCount(filteredPokemons.length)
         return
       }
 
-      if (type) {
-        const result = await getPokemonsByType(type, page, limit)
-        setPokemons(result.pokemons)
-        setTotalCount(result.totalCount)
-        return
-      }
-
-      const result = await getPokemonList(page, limit)
+      const result = await getPokemonList(page, limit, type || undefined)
       setPokemons(result.pokemons)
       setTotalCount(result.totalCount)
 
