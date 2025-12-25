@@ -1,6 +1,5 @@
 @use 'variables' as *;
 
-// Responsive Mixins
 @mixin mobile {
   @media (max-width: $breakpoint-mobile) {
     @content;
@@ -25,7 +24,6 @@
   }
 }
 
-// Container
 @mixin container {
   width: 100%;
   max-width: $container-max-width;
@@ -37,7 +35,6 @@
   }
 }
 
-// Flexbox helpers
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -50,7 +47,6 @@
   justify-content: space-between;
 }
 
-// Typography
 @mixin heading($size: 1.5rem, $weight: 700) {
   font-size: $size;
   font-weight: $weight;
@@ -58,7 +54,6 @@
   color: $text-color;
 }
 
-// Focus styles
 @mixin focus-ring($color: $primary-color) {
   &:focus {
     outline: none;
