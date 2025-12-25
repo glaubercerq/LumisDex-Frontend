@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { Pokemon, PokemonType } from '@types/pokemon'
+import { Pokemon, PokemonType } from '../types/pokemon'
 import { 
   getPokemonList, 
   searchPokemon
