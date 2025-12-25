@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '@styles/variables' as *;
 @use '@styles/mixins' as *;
 
@@ -41,7 +42,7 @@
     }
 
     &:hover:not(:focus) {
-      border-color: darken($border-color, 10%);
+      border-color: color.adjust($border-color, $lightness: -10%);
     }
   }
 
