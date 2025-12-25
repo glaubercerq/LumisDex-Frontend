@@ -34,14 +34,37 @@ export interface Pokemon {
   abilities: string[]
 }
 
-export interface PokemonListResponse {
-  count: number
-  next: string | null
-  previous: string | null
-  results: {
-    name: string
-    url: string
-  }[]
+export interface PaginatedResponse<T> {
+  data: T[]
+  total: number
+  page: number
+  limit: number
+  totalPages: number
+}
+
+export interface ListPokemonResponse extends PaginatedResponse<Pokemon> {}
+
+export interface SearchPokemonResponse {
+  data: Pokemon[]
+  total: number
+}
+
+export interface Favorite {
+  id: number
+  pokemon_id: number
+  pokemon_name: string
+  created_at: string
+  updated_at: string
+}
+
+export interface ListFavoritesResponse {
+  data: Favorite[]
+  total: number
+}
+
+export interface ApiErrorResponse {
+  error: string
+  stack?: string
 }
 
 export interface PokemonApiResponse {
@@ -71,6 +94,16 @@ export interface PokemonApiResponse {
     ability: {
       name: string
     }
+  }[]
+}
+
+export interface PokemonListResponse {
+  count: number
+  next: string | null
+  previous: string | null
+  results: {
+    name: string
+    url: string
   }[]
 }
 
