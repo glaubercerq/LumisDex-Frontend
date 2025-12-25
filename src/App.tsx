@@ -6,6 +6,7 @@ import { PokemonGrid } from '@components/PokemonGrid/PokemonGrid'
 import { Pagination } from '@components/Pagination/Pagination'
 import { PokemonModal } from '@components/PokemonModal/PokemonModal'
 import { usePokemon } from '@hooks/usePokemon'
+import { useFavorites } from '@hooks/useFavorites'
 import { Pokemon, PokemonType } from '@types/pokemon'
 
 function App() {
@@ -24,6 +25,12 @@ function App() {
     error,
     fetchPokemons 
   } = usePokemon()
+
+  const {
+    isFavorite,
+    addToFavorites,
+    removeFavoriteByPokemonId
+  } = useFavorites()
 
   useEffect(() => {
     fetchPokemons(currentPage, pokemonsPerPage, searchTerm, selectedType)
@@ -54,6 +61,22 @@ function App() {
     setSelectedPokemon(null)
   }, [])
 
+  const handleToggleFavorite = useCallback(async (pokemon: Pokemon, e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation()
+    }
+    
+    try {
+      if (isFavorite(pokemon.id)) {
+        await removeFavoriteByPokemonId(pokemon.id)
+      } else {
+        await addToFavorites(pokemon.id, pokemon.name)
+      }
+    } catch (error) {
+      console.error('Erro ao favoritar/desfavoritar:', error)
+    }
+  }, [isFavorite, addToFavorites, removeFavoriteByPokemonId])
+
   const totalPages = Math.ceil(totalCount / pokemonsPerPage)
 
   return (
@@ -82,6 +105,8 @@ function App() {
             pokemons={pokemons} 
             isLoading={isLoading}
             onPokemonClick={handlePokemonClick}
+            onToggleFavorite={handleToggleFavorite}
+            isFavorite={isFavorite}
           />
 
           {!isLoading && !error && totalPages > 1 && (
@@ -98,6 +123,8 @@ function App() {
         <PokemonModal 
           pokemon={selectedPokemon} 
           onClose={handleCloseModal}
+          onToggleFavorite={handleToggleFavorite}
+          isFavorite={isFavorite(selectedPokemon.id)}
         />
       )}
     </div>

@@ -50,6 +50,45 @@
     transition: transform $transition-normal;
   }
 
+  &__favorite {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all $transition-fast;
+    color: $text-muted;
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      background: $white;
+      transform: scale(1.1);
+      color: $primary-color;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.3);
+    }
+
+    &--active {
+      color: $primary-color;
+      background: rgba($primary-color, 0.1);
+
+      &:hover {
+        background: rgba($primary-color, 0.15);
+      }
+    }
+  }
+
   &__content {
     position: relative;
     z-index: 1;

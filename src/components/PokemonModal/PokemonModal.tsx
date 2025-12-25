@@ -12,9 +12,11 @@ import './PokemonModal.scss'
 interface PokemonModalProps {
   pokemon: Pokemon
   onClose: () => void
+  onToggleFavorite: (pokemon: Pokemon) => void
+  isFavorite: boolean
 }
 
-export function PokemonModal({ pokemon, onClose }: PokemonModalProps) {
+export function PokemonModal({ pokemon, onClose, onToggleFavorite, isFavorite }: PokemonModalProps) {
   const mainType = pokemon.types[0]
   const mainColor = TYPE_COLORS[mainType]
 
@@ -89,9 +91,31 @@ export function PokemonModal({ pokemon, onClose }: PokemonModalProps) {
             {formatPokemonId(pokemon.id)}
           </span>
           
-          <h2 id="pokemon-modal-title" className="pokemon-modal__name">
-            {formatPokemonName(pokemon.name)}
-          </h2>
+          <div className="pokemon-modal__title-row">
+            <h2 id="pokemon-modal-title" className="pokemon-modal__name">
+              {formatPokemonName(pokemon.name)}
+            </h2>
+            <button
+              className={`pokemon-modal__favorite ${isFavorite ? 'pokemon-modal__favorite--active' : ''}`}
+              onClick={() => onToggleFavorite(pokemon)}
+              aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+              type="button"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill={isFavorite ? 'currentColor' : 'none'}
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
+            </button>
+          </div>
 
           <div className="pokemon-modal__types">
             {pokemon.types.map((type) => (
