@@ -35,11 +35,9 @@ export function usePokemon(): UsePokemonReturn {
     setError(null)
 
     try {
-      // Se há termo de busca, busca por nome
       if (searchTerm && searchTerm.trim()) {
         const pokemon = await searchPokemon(searchTerm.trim())
         if (pokemon) {
-          // Se também há filtro de tipo, verifica se o Pokémon tem o tipo
           if (type && !pokemon.types.includes(type)) {
             setPokemons([])
             setTotalCount(0)
@@ -54,7 +52,6 @@ export function usePokemon(): UsePokemonReturn {
         return
       }
 
-      // Se há filtro de tipo
       if (type) {
         const result = await getPokemonsByType(type, page, limit)
         setPokemons(result.pokemons)
@@ -62,7 +59,6 @@ export function usePokemon(): UsePokemonReturn {
         return
       }
 
-      // Busca padrão paginada
       const result = await getPokemonList(page, limit)
       setPokemons(result.pokemons)
       setTotalCount(result.totalCount)
